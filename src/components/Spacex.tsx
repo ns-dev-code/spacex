@@ -3,22 +3,27 @@ import { Launches, useGetLaunchesQuery, useGetUpcomingLaunchesQuery } from '../s
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import { Chip } from '@mui/material';
 import CustomizedDialogs from './Modal';
+
 type SpacexProps = {
   selectedValue: 'all' | 'upcoming' | 'false' | 'true';
 };
 function Spacex(props: SpacexProps) {
   const { selectedValue } = props;
-  const { data: spaceData, isLoading } = useGetLaunchesQuery({
-    limit: 50,
-    launch_success: selectedValue === 'true' ? true : false,
-  });
+  const { data: spaceData, isLoading } = useGetLaunchesQuery(
+    selectedValue === 'all'
+      ? {}
+      : {
+          limit: 50,
+          launch_success: selectedValue === 'true' ? true : false,
+        },
+  );
   const { data: upcomingData } = useGetUpcomingLaunchesQuery({ limit: 50, launch_type: 'upcoming' });
   const [launches, setLaunches] = useState<Launches[]>([]);
   const [launch, setLaunch] = useState<Launches>();
 
   useEffect(() => {
     if (spaceData && selectedValue !== 'upcoming') setLaunches(spaceData);
-    else if (upcomingData) setLaunches(upcomingData);
+    else if (selectedValue === 'upcoming' && upcomingData) setLaunches(upcomingData);
   }, [spaceData, spaceData?.length, selectedValue, upcomingData, upcomingData?.length]);
 
   //should be memoized or stable

@@ -35,7 +35,7 @@ export type GetLaunchesApiResponse = Launches[];
 export type GetLaunchesApiResponseArg = {
   limit?: number;
   order?: 'asc' | 'desc';
-  launch_success?: boolean;
+  launch_success?: boolean | 'all';
   launch_type?: 'upcoming';
 };
 

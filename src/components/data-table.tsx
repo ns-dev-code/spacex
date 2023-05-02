@@ -66,7 +66,7 @@ const data: Person[] = [
 ];
 
 const Example = () => {
-  const [selectedValue, setSelectedValue] = useState<'all' | 'upcoming' | 'false' | 'true'>('upcoming');
+  const [selectedValue, setSelectedValue] = useState<'all' | 'upcoming' | 'false' | 'true'>('all');
 
   const handleSelectionChange = (event: any) => {
     setSelectedValue(event.target.value);

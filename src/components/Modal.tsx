@@ -77,8 +77,10 @@ export default function CustomizedDialogs(props: DialogProps) {
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            {data?.details}
-            &nbsp;<a href={data?.links.wikipedia}>Wikipedia</a>
+            {data?.details}. &nbsp;
+            <a target='_blank' href={data?.links.wikipedia} rel='noreferrer'>
+              Wikipedia
+            </a>
           </Typography>
           <Divider />
           <Grid container marginY={2}>

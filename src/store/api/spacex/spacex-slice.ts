@@ -21,7 +21,7 @@ const injectedRtkApi = api
         }),
         providesTags: ['Launches'],
       }),
-      getUserById: build.query<GetLaunchByIdApiResponse, GetLaunchByIdArg>({
+      getLaunchById: build.query<GetLaunchByIdApiResponse, GetLaunchByIdArg>({
         query: (queryArg) => ({ url: `/launches/${queryArg.launchId}` }),
         providesTags: ['Launches'],
       }),
@@ -44,7 +44,7 @@ export type GetLaunchByIdArg = {
   launchId: string;
 };
 
-export const { useGetLaunchesQuery, useGetUpcomingLaunchesQuery } = injectedRtkApi;
+export const { useGetLaunchesQuery, useGetUpcomingLaunchesQuery, useGetLaunchByIdQuery } = injectedRtkApi;
 
 export interface Launches {
   flight_number: number;

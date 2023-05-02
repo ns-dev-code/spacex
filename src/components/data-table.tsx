@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import MaterialReactTable, { type MRT_ColumnDef } from 'material-react-table';
-import { Launches, useGetLaunchesQuery } from '../store/api/spacex/spacex-slice';
-import { Box, Chip } from '@mui/material';
-import CustomizedDialogs from './Modal';
+import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import { FilterList } from '@mui/icons-material';
+import { useParams, useSearchParams } from 'react-router-dom';
+
 import Spacex from './Spacex';
 
 type Person = {
@@ -65,11 +64,26 @@ const data: Person[] = [
   },
 ];
 
+type LaunchData = {
+  data: 'all' | 'upcoming' | 'false' | 'true';
+};
+
 const Example = () => {
-  const [selectedValue, setSelectedValue] = useState<'all' | 'upcoming' | 'false' | 'true'>('all');
+  const [selectedValue, setSelectedValue] = useState<LaunchData['data']>('all');
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const launchStatus = searchParams.get('launch-status');
+    if (launchStatus !== null) {
+      setSelectedValue(launchStatus as LaunchData['data']);
+    }
+  }, [searchParams]);
 
   const handleSelectionChange = (event: any) => {
-    setSelectedValue(event.target.value);
+    const { value } = event?.target;
+    setSelectedValue(value);
+    const params = new URLSearchParams({ 'launch-status': value });
+    setSearchParams(params);
   };
 
   // if (isLoading) return <h4>Loading...</h4>;

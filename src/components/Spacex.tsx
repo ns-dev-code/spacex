@@ -3,6 +3,7 @@ import { Launches, useGetLaunchesQuery, useGetUpcomingLaunchesQuery } from '../s
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import { Chip } from '@mui/material';
 import CustomizedDialogs from './Modal';
+import moment from 'moment';
 
 type SpacexProps = {
   selectedValue: 'all' | 'upcoming' | 'false' | 'true';
@@ -35,6 +36,7 @@ function Spacex(props: SpacexProps) {
       },
       {
         accessorKey: 'launch_date_utc',
+        accessorFn: (data) => moment(data.launch_date_utc).format('Do MMMM YYYY @ H:mm'),
         header: 'Launched (UTC)',
       },
       {
@@ -70,8 +72,6 @@ function Spacex(props: SpacexProps) {
     [],
   );
 
-  console.log('render spacex');
-
   return (
     <>
       <MaterialReactTable
@@ -91,7 +91,7 @@ function Spacex(props: SpacexProps) {
           },
         })}
       />
-      <CustomizedDialogs data={launch} onClose={() => setLaunch(undefined)} />
+      {launch && <CustomizedDialogs data={launch} onClose={() => setLaunch(undefined)} />}
     </>
   );
 }

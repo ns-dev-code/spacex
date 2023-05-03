@@ -5,9 +5,10 @@ import { Chip } from '@mui/material';
 import CustomizedDialogs from './Modal';
 import moment from 'moment';
 
-type SpacexProps = {
+export type SpacexProps = {
   selectedValue: 'all' | 'upcoming' | 'false' | 'true';
 };
+
 function Spacex(props: SpacexProps) {
   const { selectedValue } = props;
   const { data: spaceData, isLoading } = useGetLaunchesQuery(
